@@ -18,6 +18,9 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var entrepreneurImageView: UIImageView!
     @IBOutlet weak var startAgainButton: UIButton!
 
+    var resultKey = "" //key to get the correct result based on the choices made
+    var results = Results() // Class Object with a dictionary property that contains all results
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,13 +28,22 @@ class ResultViewController: UIViewController {
         strengthsView.layer.cornerRadius = 12
         weaknessesView.layer.cornerRadius = 12
         entrepreneurImageView.layer.cornerRadius = 12
-    }
-    
 
-    @IBAction func startAgainClicked(_ sender: Any) {
-        
-        dismiss(animated: true, completion: nil)
+        updateUI()
     }
+
+
+    func updateUI() {
+        let resultLabel = results.allResults[resultKey] //gets the the value with the right key
+        
+        titleLabel.text = resultLabel?.title
+        descriptionLabel.text = resultLabel?.description
+        strengthsLabel.text = resultLabel?.strengths
+        weaknessesLabel.text = resultLabel?.weaknesses
+        entrepreneurImageView.image = UIImage(named: resultLabel!.entrepreneurImage)
+    }
+
+
     
     
     /*
